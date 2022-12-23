@@ -175,13 +175,13 @@ namespace UnitTest
 			timeStt = std::chrono::system_clock::now();
 			radix_sort(items, items + NUM);
 			timeEnd = std::chrono::system_clock::now();
-			uint64_t  sortTime_quick = std::chrono::duration_cast<std::chrono::microseconds>(timeEnd - timeStt).count();
+			uint64_t  sortTime_radix = std::chrono::duration_cast<std::chrono::microseconds>(timeEnd - timeStt).count();
 
 			for (int i = 0; i < NUM; i++) {
 				Assert::AreEqual(item_b[i].value, items[i].value);
 			}
 
-			Assert::IsTrue(sortTime_quick * 100 < sortTime_bubble);// 数が大きければ100倍ぐらい早い
+			Assert::IsTrue(sortTime_radix * 100 < sortTime_bubble);// 数が大きければ100倍ぐらい早い
 
 			free(item_b);
 			free(items);
