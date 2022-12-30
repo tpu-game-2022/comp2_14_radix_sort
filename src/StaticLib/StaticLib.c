@@ -9,7 +9,7 @@
 // 基数は256で実装せよ
 bool radix_sort(item* begin, const item* end)
 {
-    int size = end - begin;
+    int size = (int)(end - begin);
     if (!begin || !end || size < 0) {
         return false;
     }
