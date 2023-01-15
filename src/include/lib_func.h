@@ -19,7 +19,7 @@ extern "C" {
 	// 基数は256で実装せよ
 	bool radix_sort(item *begin, const item* end);
 
-	void swap_radix(item *order, int num, int rad);
+	bool swap_radix(item *order, int num, int rad);//bool外すと通らない
 
 	// C++ でCのライブラリを使うときのおまじない
 #ifdef __cplusplus

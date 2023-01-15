@@ -1,6 +1,5 @@
 ﻿#define WIN32_LEAN_AND_MEAN             // Windows ヘッダーからほとんど使用されていない部分を除外する
 #include "Windows.h"                    // Windows API の機能定義
-#include <stdio.h>
 #include <stdlib.h>
 #include "../include/lib_func.h"
 
@@ -14,48 +13,49 @@ bool radix_sort(item* begin, const item* end)
 
 	if (end - begin < 2)return true;
 
-	//int size = end - begin;
+	int size = end - begin;
 
-	swap_radix(begin, end - begin, 256);
-
-	return true;
+	return swap_radix(begin, size, 256);
 }
 
-static void swap_radix(item* order, const int num, const int rad)
+bool swap_radix(item* order, const int num, const int rad)
 {
-	int i, j, count, n;
-	int level = 1, skep = 0;
+	int count, skep = 0;
+	unsigned int level = 1;
 	
 	item *copy = (item*)malloc(sizeof(item) * num);
-	int *bottom = (int*)malloc(sizeof(int) * num + 1);
+	if (copy == NULL) return false;
+
+	int *bottom = (int*)malloc(sizeof(int) * num);
+	if (bottom == NULL) { 
+		free(copy);    //最初に取得した領域の解放
+		return false; 
+	}
 
 	while (skep != num)
 	{
 		skep = 0;
-
-		for (i = 0; i < num; i++)
+		
+		for (int i = 0; i < num; i++)
 		{
-			n = order[i].key / level;
-			bottom[i] = n % rad;
+			bottom[i] = (order[i].key / level) % rad;
 
-			if (order[i].key < (unsigned)level)
+			if (order[i].key < level)//全て上回るなら終了条件
 				skep++;
 		}
 
 		count = 0;
 
-		for (i = 0; i <= rad; i++)
+		for (int i = 0; i < rad; i++)
 		{
-			for (j = 0; j < num; j++)
+			for (int j = 0; j < num; j++)
 			{
 				if (bottom[j] == i)
-					copy[count] = order[j];
-
-				count++;
+					copy[count++] = order[j];
 			}
 		}
 
-		for (i = 0; i < num; i++)
+		for (int i = 0; i < num; i++)
 			order[i] = copy[i];
 
 		level *= rad;
@@ -63,4 +63,5 @@ static void swap_radix(item* order, const int num, const int rad)
 
 	free(copy);
 	free(bottom);
+	return true;
 }
