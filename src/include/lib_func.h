@@ -1,8 +1,6 @@
 ﻿#pragma once // インクルードガード
 
 #include <stdbool.h>
-#include <stdlib.h>
-#include <string.h>
 
 // C++ でCのライブラリを使うときのおまじない
 #ifdef __cplusplus
