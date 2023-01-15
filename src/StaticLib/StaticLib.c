@@ -13,6 +13,8 @@ int getRadixLimit(item*begin,int size) {
             n = begin[i].key;
         }
     }
+
+    return n;
 }
 
 // 基数は256で実装せよ
@@ -20,9 +22,9 @@ bool radix_sort(item * begin, const item * end)
 {
     if (begin == NULL || end == NULL) return false;
 
-    int size = end - begin;
+    int size = (int)(end - begin);
     if (size < 0) return false;
-    if (size <= 1) return true;
+    if (size < 2) return true;
 
     int n = getRadixLimit(begin, size);
 
