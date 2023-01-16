@@ -45,7 +45,7 @@ namespace UnitTest
 
 		TEST_METHOD(２要素でそのまま)
 		{
-			item items[2] = {
+			item items[2] ={
 				{2, "Hello"},
 				{4, "world!"},
 			};
